@@ -45,9 +45,24 @@ This is a simple chat web application using Golang. It uses WebSocket to communi
 
 ## Features
 
+- [x] Authenticate a user
+- [x] Create a user
 - [x] Create a room
-- [ ] Join a room
-- [ ] Send a message
-- [ ] Receive a message
-- [ ] Leave a room
-- [ ] Delete a room
+- [x] Join a room
+- [x] Send a message
+- [x] Receive a message
+- [x] Leave a room
+- [x] Delete a room
+
+## Future improvements
+
+- [ ] Add more features
+- [ ] Add more tests
+- [ ] Add more comments
+- [ ] Add more error handling
+- [ ] Add more logging
+- [ ] Add more security
+
+## Suggestions and feedback
+
+If you have any suggestions or feedback, please create an issue or pull request. Thank you!
