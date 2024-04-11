@@ -1,13 +1,19 @@
 postgresinit:
-    docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -d -p 5432:5432 postgres
+    docker run --name my-postgres -p 5433:5432 postgres -e POSTGRES_USER=my-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
 
-postgres: 
-    docker exec -it my-postgres bash
+postgres:
+    docker exec -it my-postgres psql
 
-	createdb:
-		docker exec -it my-postgres psql -U postgres -c "CREATE DATABASE go_chat;"
+createdb:
+    docker exec -it my-postgres createdb --username=my-postgres --owner=my-postgres go_chat
 
-	dropdb:
-		docker exec -it my-postgres psql -U postgres -c "DROP DATABASE go_chat;"
+dropdb:
+    docker exec -it my-postgres dropdb go_chat
 
-.PHONY: postgresinit postgres createdb dropdb
+migrateup:
+    migrate -path db/migrations -database "postgresql://my-postgres:mysecretpassword@localhost:5433/go_chat?sslmode=disable" -verbose up
+
+migratedown:
+    migrate -path db/migrations -database "postgresql://my-postgres:mysecretpassword@localhost:5433/go_chat?sslmode=disable" -verbose down
+
+.PHONY: postgresinit postgres createdb dropdb migrateup migratedown
